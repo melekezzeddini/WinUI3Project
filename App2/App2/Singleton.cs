@@ -1,7 +1,22 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Microsoft.UI.Xaml.Controls;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using Windows.Storage.Pickers;
+using Windows.Storage;
+using Microsoft.UI.Xaml;
+using System.Linq;
+using WinRT.Interop;
+using Windows.UI;
+using Windows.UI.Popups;
+using System.IO;
+using System.Reflection;
+using Microsoft.UI.Xaml.Media;
+using Microsoft.UI;
+
 
 namespace App2
 {
@@ -12,7 +27,7 @@ namespace App2
 
         private Singleton()
         {
-            connection = new MySqlConnection("Server=cours.cegep3r.info;Database=a2024_420335ri_eq17;Uid=6221863;Pwd=6221863;");
+            connection = new MySqlConnection("Server=cours.cegep3r.info;Database=a2024_420335ri_eq17;Uid=2121088;Pwd=2121088;");
         }
         
 
@@ -104,6 +119,84 @@ namespace App2
 
             return adherents;
         }
+
+
+        public async Task<(bool success, string message)> ExportActivitesToCsv(List<Activite> activites)
+        {
+            StringBuilder csvContent = new StringBuilder();
+
+            // Add each activity to the CSV content
+            foreach (var activite in activites)
+            {
+                csvContent.AppendLine($"{activite.IdActivite};{activite.Nom};{activite.CoutOrganisation};{activite.PrixParticipation};{activite.IdType};{activite.TypeName};{activite.AvgRating}");
+            }
+
+            // Define the manual path (e.g., in the project's root directory)
+            string projectDirectory = @"C:\Users\avada\source\repos\WinUI3Project2\App2\App2\Assets";
+            string exportFolder = Path.Combine(projectDirectory, "ExportedFiles");
+
+            // Ensure the folder exists
+            if (!Directory.Exists(exportFolder))
+            {
+                Directory.CreateDirectory(exportFolder);
+            }
+
+            // Define the full file path (activites.csv will be saved in the "ExportedFiles" folder)
+            string filePath = Path.Combine(exportFolder, "activites.csv");
+
+            try
+            {
+                // Write CSV content to the file asynchronously
+                await File.WriteAllTextAsync(filePath, csvContent.ToString());
+                return (true, "Fichier Exporté !");
+            }
+            catch (Exception ex)
+            {
+                return (false, "Erreur !!");
+            }
+        }
+
+        public async Task<(bool success, string message)> ExportAdherentToCsv(List<Adherent> adherents)
+        {
+            StringBuilder csvContent = new StringBuilder();
+
+            // Add each activity to the CSV content
+            foreach (var adherent in adherents)
+            {
+                csvContent.AppendLine($"{adherent.Num_identification};{adherent.Nom},{adherent.Prenom};{adherent.Adresse};{adherent.Date_naissance};{adherent.Age}");
+            }
+
+            // Define the manual path (e.g., in the project's root directory)
+            string projectDirectory = @"C:\Users\avada\source\repos\WinUI3Project2\App2\App2\Assets";
+            string exportFolder = Path.Combine(projectDirectory, "ExportedFiles");
+
+            // Ensure the folder exists
+            if (!Directory.Exists(exportFolder))
+            {
+                Directory.CreateDirectory(exportFolder);
+            }
+
+            // Define the full file path (activites.csv will be saved in the "ExportedFiles" folder)
+            string filePath = Path.Combine(exportFolder, "adherent.csv");
+
+            try
+            {
+                // Write CSV content to the file asynchronously
+                await File.WriteAllTextAsync(filePath, csvContent.ToString());
+                return (true, "Fichier Exporté !");
+            }
+            catch (Exception ex)
+            {
+                return (false, "Erreur !!");
+            }
+        }
+
+
+
+
+
+
+
 
         // Consolidated statistics method
         public (int TotalMembers, int TotalActivities, List<string> MembersPerActivity, List<string> AverageRatings,

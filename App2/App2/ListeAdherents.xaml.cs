@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -30,6 +31,24 @@ namespace App2
             this.InitializeComponent();
             ListeAdherent = Singleton.Instance.GetAllAdherents();
             ActivitesListView.ItemsSource = ListeAdherent;
+        }
+        private async void ExporterButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Call the ExportActivitesToCsv method and get the returned result
+            var result = await Singleton.Instance.ExportAdherentToCsv(ListeAdherent);
+
+            // Update the TextBlock with the message
+            err.Text = result.message;
+
+            // Set the color based on the success value
+            if (result.success)
+            {
+                err.Foreground = new SolidColorBrush(Microsoft.UI.Colors.Green); // Success (green)
+            }
+            else
+            {
+                err.Foreground = new SolidColorBrush(Microsoft.UI.Colors.Red); // Failure (red)
+            }
         }
     }
 }

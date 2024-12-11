@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "aPvgj0X8FC8=",
+  "dgSpecHash": "3GfdB9fVLzA=",
   "success": true,
-  "projectFilePath": "C:\\Users\\avada\\Source\\Repos\\WinUI3Project2\\App2\\App2\\App2.csproj",
+  "projectFilePath": "C:\\Users\\avada\\source\\repos\\WinUI3Project\\App2\\App2\\App2.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\avada\\.nuget\\packages\\bouncycastle.cryptography\\2.3.1\\bouncycastle.cryptography.2.3.1.nupkg.sha512",
     "C:\\Users\\avada\\.nuget\\packages\\google.protobuf\\3.26.1\\google.protobuf.3.26.1.nupkg.sha512",

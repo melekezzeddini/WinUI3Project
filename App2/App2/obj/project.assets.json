@@ -4321,11 +4321,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\avada\\source\\repos\\WinUI3Project\\App2\\App2\\App2.csproj",
+      "projectUniqueName": "C:\\Users\\avada\\Source\\Repos\\WinUI3Project2\\App2\\App2\\App2.csproj",
       "projectName": "App2",
-      "projectPath": "C:\\Users\\avada\\source\\repos\\WinUI3Project\\App2\\App2\\App2.csproj",
+      "projectPath": "C:\\Users\\avada\\Source\\Repos\\WinUI3Project2\\App2\\App2\\App2.csproj",
       "packagesPath": "C:\\Users\\avada\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\avada\\source\\repos\\WinUI3Project\\App2\\App2\\obj\\",
+      "outputPath": "C:\\Users\\avada\\Source\\Repos\\WinUI3Project2\\App2\\App2\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\vs 2022\\Shared\\NuGetPackages"

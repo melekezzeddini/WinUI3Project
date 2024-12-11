@@ -23,9 +23,13 @@ namespace App2
     /// </summary>
     public sealed partial class ListeAdherents : Page
     {
+        public List<Adherent> ListeAdherent { get; set; }
+
         public ListeAdherents()
         {
             this.InitializeComponent();
+            ListeAdherent = Singleton.Instance.GetAllAdherents();
+            ActivitesListView.ItemsSource = ListeAdherent;
         }
     }
 }

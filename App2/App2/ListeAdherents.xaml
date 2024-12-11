@@ -10,6 +10,42 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <TextBlock Text="Liste des Adhérents" 
+            FontSize="24" 
+            FontWeight="Bold" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Top" 
+            Margin="0,10,10,10"/>
 
+        <!-- Conteneur pour les en-têtes -->
+        <Grid HorizontalAlignment="Stretch" Margin="10,50,10,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Numero identificatif" FontWeight="Bold" FontSize="16" HorizontalAlignment="Left" Grid.Column="0" Margin="5"/>
+            <TextBlock Text="Nom Complet" FontWeight="Bold" FontSize="16" HorizontalAlignment="Left" Grid.Column="1" Margin="5"/>
+            
+        </Grid>
+
+        <!-- Liste des activités, seule partie scrollable -->
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,110,10,10">
+            <ListView x:Name="ActivitesListView" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="local:Adherent">
+                        <Grid HorizontalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Line Stretch="UniformToFill"   Margin="0,39,0,0" Stroke="Black" Grid.Column="0" Grid.ColumnSpan="2" X2="1"/>
+                            <TextBlock Text="{x:Bind Num_identification}" FontSize="14" HorizontalAlignment="Left" Grid.Column="0" Margin="15,5,5,5"/>
+                            <TextBlock Text="{x:Bind Nom_complet}" FontSize="14" HorizontalAlignment="Left" Grid.Column="1" Margin="15,5,5,5"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollViewer>
     </Grid>
 </Page>

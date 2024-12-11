@@ -68,7 +68,42 @@ namespace App2
             return activites;
         }
 
+        public List<Adherent> GetAllAdherents()
+        {
+            List<Adherent> adherents = new List<Adherent>();
 
+            // SQL query to get all adherents
+            string query = "SELECT * FROM adherent";
+
+            MySqlCommand command = new MySqlCommand(query, connection);
+
+            if (connection.State != System.Data.ConnectionState.Open)
+            {
+                connection.Open();
+            }
+
+            MySqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                Adherent adherent = new Adherent
+                {
+                    Num_identification = reader.GetString("num_identification"),
+                    Nom = reader.GetString("nom"),
+                    Prenom = reader.GetString("prenom"),
+                    Adresse = reader.GetString("adresse"),
+                    Date_naissance = reader.GetDateTime("date_naissance").ToString(),
+                    Age = reader.GetInt32("age")
+                };
+                adherents.Add(adherent);
+            }
+
+            if (connection.State == System.Data.ConnectionState.Open)
+            {
+                connection.Close();
+            }
+
+            return adherents;
+        }
 
         // Consolidated statistics method
         public (int TotalMembers, int TotalActivities, List<string> MembersPerActivity, List<string> AverageRatings,

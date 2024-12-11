@@ -8,7 +8,7 @@ namespace App2
     public class Singleton
     {
         private static Singleton instance;
-        private MySqlConnection connection;
+        public MySqlConnection connection;
 
         private Singleton()
         {
@@ -250,5 +250,41 @@ namespace App2
 
             return command.ExecuteReader();
         }
+
+
+        public bool Authenticate(string username, string password)
+        {
+            try
+            {
+                string query = "SELECT COUNT(*) FROM administrateur WHERE nom_usager = @username AND mot_de_passe = @password";
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@username", username);
+                    command.Parameters.AddWithValue("@password", password);
+
+                    if (connection.State != System.Data.ConnectionState.Open)
+                        connection.Open();
+
+                    int result = Convert.ToInt32(command.ExecuteScalar());
+                    connection.Close();
+
+                    return result > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                if (connection.State == System.Data.ConnectionState.Open)
+                    connection.Close();
+
+                // Logique pour gérer les erreurs
+                Console.WriteLine($"Erreur : {ex.Message}");
+                return false;
+            }
+        }
+
+
+
+
+
     }
 }

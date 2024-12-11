@@ -4315,23 +4315,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\avada\\.nuget\\packages\\": {},
-    "D:\\vs 2022\\Shared\\NuGetPackages": {}
+    "C:\\Users\\2121088\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\avada\\Source\\Repos\\WinUI3Project2\\App2\\App2\\App2.csproj",
+      "projectUniqueName": "C:\\Users\\2121088\\Source\\Repos\\WinUI3Project\\App2\\App2\\App2.csproj",
       "projectName": "App2",
-      "projectPath": "C:\\Users\\avada\\Source\\Repos\\WinUI3Project2\\App2\\App2\\App2.csproj",
-      "packagesPath": "C:\\Users\\avada\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\avada\\Source\\Repos\\WinUI3Project2\\App2\\App2\\obj\\",
+      "projectPath": "C:\\Users\\2121088\\Source\\Repos\\WinUI3Project\\App2\\App2\\App2.csproj",
+      "packagesPath": "C:\\Users\\2121088\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\2121088\\Source\\Repos\\WinUI3Project\\App2\\App2\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "D:\\vs 2022\\Shared\\NuGetPackages"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\avada\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\2121088\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -4340,6 +4340,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -4352,11 +4353,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -4390,43 +4386,43 @@
         "downloadDependencies": [
           {
             "name": "Microsoft.AspNetCore.App.Runtime.win-arm64",
-            "version": "[6.0.33, 6.0.33]"
+            "version": "[6.0.8, 6.0.8]"
           },
           {
             "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
-            "version": "[6.0.33, 6.0.33]"
+            "version": "[6.0.8, 6.0.8]"
           },
           {
             "name": "Microsoft.AspNetCore.App.Runtime.win-x86",
-            "version": "[6.0.33, 6.0.33]"
+            "version": "[6.0.8, 6.0.8]"
           },
           {
             "name": "Microsoft.NETCore.App.Runtime.win-arm64",
-            "version": "[6.0.33, 6.0.33]"
+            "version": "[6.0.8, 6.0.8]"
           },
           {
             "name": "Microsoft.NETCore.App.Runtime.win-x64",
-            "version": "[6.0.33, 6.0.33]"
+            "version": "[6.0.8, 6.0.8]"
           },
           {
             "name": "Microsoft.NETCore.App.Runtime.win-x86",
-            "version": "[6.0.33, 6.0.33]"
+            "version": "[6.0.8, 6.0.8]"
           },
           {
             "name": "Microsoft.Windows.SDK.NET.Ref",
-            "version": "[10.0.19041.34, 10.0.19041.34]"
+            "version": "[10.0.19041.26, 10.0.19041.26]"
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Runtime.win-arm64",
-            "version": "[6.0.33, 6.0.33]"
+            "version": "[6.0.8, 6.0.8]"
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
-            "version": "[6.0.33, 6.0.33]"
+            "version": "[6.0.8, 6.0.8]"
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Runtime.win-x86",
-            "version": "[6.0.33, 6.0.33]"
+            "version": "[6.0.8, 6.0.8]"
           }
         ],
         "frameworkReferences": {
@@ -4437,7 +4433,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
       }
     },
     "runtimes": {

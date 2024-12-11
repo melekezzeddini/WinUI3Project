@@ -28,9 +28,24 @@ namespace App2
             this.InitializeComponent();
         }
 
-        private void myButton_Click(object sender, RoutedEventArgs e)
+        private void nav_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
-            myButton.Content = "Clicked";
+            if (args.SelectedItem != null)
+            {
+                var item = (NavigationViewItem)args.SelectedItem;
+
+                switch (item.Name)
+                {
+                    case "listeAc":
+                        mainFrame.Navigate(typeof(ListeActivitees));
+                        break;
+                    case "listeAd":
+                        mainFrame.Navigate(typeof(ListeAdherents));
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 }

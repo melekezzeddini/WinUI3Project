@@ -10,8 +10,9 @@
     <NavigationView x:Name="nav" SelectionChanged="nav_SelectionChanged"
                 IsSettingsVisible="False" IsBackButtonVisible="Collapsed">
         <NavigationView.MenuItems>
-            <NavigationViewItem Icon="List" Content="Liste des activitées" Name="listeAc"/>
+            <NavigationViewItem Icon="list" Content="Liste des activités" Name="listeAc"/>
             <NavigationViewItem Icon="People" Content="Liste des adherents" Name="listeAd" />
+            <NavigationViewItem Icon="AllApps" Content="Statistiques" Name="Stat" />
         </NavigationView.MenuItems>
         <Frame x:Name="mainFrame"  />
     </NavigationView>

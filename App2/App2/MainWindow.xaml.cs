@@ -42,6 +42,9 @@ namespace App2
                     case "listeAd":
                         mainFrame.Navigate(typeof(ListeAdherents));
                         break;
+                    case "Stat":
+                        mainFrame.Navigate(typeof(PageStatistique));
+                        break;
                     default:
                         break;
                 }

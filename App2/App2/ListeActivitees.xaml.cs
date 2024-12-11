@@ -24,24 +24,24 @@ namespace App2
     /// </summary>
     public sealed partial class ListeActivitees : Page
     {
-        public List<Activite> ListeActivites { get; set; }
+            public List<Activite> ListeActivites { get; set; }
 
-        public ListeActivitees()
-        {
-            this.InitializeComponent();
-            ListeActivites = Singleton.Instance.GetAllActivites();
-            ActivitesListView.ItemsSource = ListeActivites;
-        }
-
-
-
-        private void ActivitesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (ActivitesListView.SelectedItem is Activite selectedActivite)
+            public ListeActivitees()
             {
-                this.Frame.Navigate(typeof(PageActivite), selectedActivite);
+                this.InitializeComponent();
+                ListeActivites = Singleton.Instance.GetAllActivites();
+                ActivitesListView.ItemsSource = ListeActivites;
             }
-        }
+
+
+
+            private void ActivitesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+            {
+                if (ActivitesListView.SelectedItem is Activite selectedActivite)
+                {
+                    this.Frame.Navigate(typeof(PageActivite), selectedActivite);
+                }
+            }
 
     }
 }

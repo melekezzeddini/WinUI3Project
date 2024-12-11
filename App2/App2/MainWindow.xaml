@@ -7,13 +7,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <NavigationView x:Name="nav" SelectionChanged="nav_SelectionChanged"
-                IsSettingsVisible="False" IsBackButtonVisible="Collapsed">
+    <NavigationView x:Name="nav" IsSettingsVisible="False" IsBackButtonVisible="Collapsed">
         <NavigationView.MenuItems>
-            <NavigationViewItem Icon="list" Content="Liste des activités" Name="listeAc"/>
-            <NavigationViewItem Icon="People" Content="Liste des adherents" Name="listeAd" />
-            <NavigationViewItem Icon="AllApps" Content="Statistiques" Name="Stat" />
+            <NavigationViewItem Icon="List" Content="Liste des activités" Name="listeAc"/>
+            <NavigationViewItem Icon="People" Content="Liste des adhérents" Name="listeAd"/>
+            <NavigationViewItem Icon="AllApps" Content="Statistiques" Name="Stat"/>
         </NavigationView.MenuItems>
-        <Frame x:Name="mainFrame"  />
+        <Frame x:Name="mainFrame"/>
     </NavigationView>
 </Window>

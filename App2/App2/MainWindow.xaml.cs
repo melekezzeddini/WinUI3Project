@@ -1,43 +1,40 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
+using Microsoft.UI.Xaml.Data;
+using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
+
+// To learn more about WinUI, the WinUI project structure,
+// and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace App2
 {
+    /// <summary>
+    /// An empty window that can be used on its own or navigated to within a Frame.
+    /// </summary>
     public sealed partial class MainWindow : Window
     {
-        private bool isAuthenticated = false; // Variable pour suivre l'état de l'authentification
-        public static MainWindow Instance { get; private set; } // Ajout d'une instance globale
-
-
         public MainWindow()
         {
             this.InitializeComponent();
-            Instance = this; // Référence à l'instance actuelle
+
             // Naviguer vers la page de connexion au démarrage
             mainFrame.Navigate(typeof(LoginPage));
-            nav.Visibility = Visibility.Collapsed; // Cacher le menu jusqu'à l'authentification
-        }
-
-
-
-        // Méthode appelée après une connexion réussie
-        public void OnLoginSuccess()
-        {
-            nav.Visibility = Visibility.Visible;
-            mainFrame.Navigate(typeof(ListeActivitees)); // Naviguer vers une page après la connexion
         }
 
 
 
         private void nav_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
-            if (!isAuthenticated)
-            {
-                mainFrame.Navigate(typeof(LoginPage)); // Rediriger vers la page de connexion si non authentifié
-                return;
-            }
-
             if (args.SelectedItem != null)
             {
                 var item = (NavigationViewItem)args.SelectedItem;

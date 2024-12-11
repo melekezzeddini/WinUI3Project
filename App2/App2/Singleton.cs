@@ -23,13 +23,17 @@ namespace App2
     public class Singleton
     {
         private static Singleton instance;
-        public MySqlConnection connection;
+        public MySqlConnection connection { get; }
+
+
 
         private Singleton()
         {
-            connection = new MySqlConnection("Server=cours.cegep3r.info;Database=a2024_420335ri_eq17;Uid=2121088;Pwd=2121088;");
+            connection = new MySqlConnection("Server=cours.cegep3r.info;Database=a2024_420335ri_eq17;Uid=6221863;Pwd=6221863;");
         }
-        
+
+
+
 
         public static Singleton Instance
         {
@@ -42,6 +46,7 @@ namespace App2
                 return instance;
             }
         }
+
 
         // Retained GetAllActivities method
         public List<Activite> GetAllActivites()
@@ -344,38 +349,89 @@ namespace App2
             return command.ExecuteReader();
         }
 
+        public void CloseConnection()
+        {
+            if (connection != null && connection.State == System.Data.ConnectionState.Open)
+            {
+                connection.Close();
+                Console.WriteLine("Connexion MySQL fermée avec succès.");
+            }
+        }
 
-        public bool Authenticate(string username, string password)
+
+        private bool AuthenticateUser(string username, string password)
         {
             try
             {
                 string query = "SELECT COUNT(*) FROM administrateur WHERE nom_usager = @username AND mot_de_passe = @password";
-                using (MySqlCommand command = new MySqlCommand(query, connection))
+
+                using (MySqlCommand command = new MySqlCommand(query, Singleton.Instance.connection))
                 {
                     command.Parameters.AddWithValue("@username", username);
                     command.Parameters.AddWithValue("@password", password);
 
-                    if (connection.State != System.Data.ConnectionState.Open)
-                        connection.Open();
-
                     int result = Convert.ToInt32(command.ExecuteScalar());
-                    connection.Close();
-
+                    Singleton.Instance.CloseConnection();
                     return result > 0;
                 }
             }
             catch (Exception ex)
             {
-                if (connection.State == System.Data.ConnectionState.Open)
-                    connection.Close();
-
-                // Logique pour gérer les erreurs
-                Console.WriteLine($"Erreur : {ex.Message}");
+                Console.WriteLine($"Erreur d'authentification : {ex.Message}");
                 return false;
             }
         }
 
+        public bool AddAdherent(Adherent adherent)
+        {
+            string query = "INSERT INTO adherent (num_identification, nom, prenom, adresse, date_naissance, age) " +
+                           "VALUES (@numId, @nom, @prenom, @adresse, @dateNaissance, @age)";
+            MySqlCommand command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@numId", adherent.Num_identification);
+            command.Parameters.AddWithValue("@nom", adherent.Nom);
+            command.Parameters.AddWithValue("@prenom", adherent.Prenom);
+            command.Parameters.AddWithValue("@adresse", adherent.Adresse);
+            command.Parameters.AddWithValue("@dateNaissance", adherent.Date_naissance);
+            command.Parameters.AddWithValue("@age", adherent.Age);
 
+            connection.Open();
+            int result = command.ExecuteNonQuery();
+            connection.Close();
+
+            return result > 0;
+        }
+
+        public bool UpdateAdherent(Adherent adherent)
+        {
+            string query = "UPDATE adherent SET nom = @nom, prenom = @prenom, adresse = @adresse, " +
+                           "date_naissance = @dateNaissance, age = @age WHERE num_identification = @numId";
+            MySqlCommand command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@numId", adherent.Num_identification);
+            command.Parameters.AddWithValue("@nom", adherent.Nom);
+            command.Parameters.AddWithValue("@prenom", adherent.Prenom);
+            command.Parameters.AddWithValue("@adresse", adherent.Adresse);
+            command.Parameters.AddWithValue("@dateNaissance", adherent.Date_naissance);
+            command.Parameters.AddWithValue("@age", adherent.Age);
+
+            connection.Open();
+            int result = command.ExecuteNonQuery();
+            connection.Close();
+
+            return result > 0;
+        }
+
+        public bool DeleteAdherent(string numId)
+        {
+            string query = "DELETE FROM adherent WHERE num_identification = @numId";
+            MySqlCommand command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@numId", numId);
+
+            connection.Open();
+            int result = command.ExecuteNonQuery();
+            connection.Close();
+
+            return result > 0;
+        }
 
 
 

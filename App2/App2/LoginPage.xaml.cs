@@ -1,5 +1,7 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using MySql.Data.MySqlClient;
+using System;
 
 namespace App2
 {
@@ -10,9 +12,6 @@ namespace App2
             this.InitializeComponent();
         }
 
-
-
-
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             string username = UsernameTextBox.Text.Trim();
@@ -20,8 +19,8 @@ namespace App2
 
             if (AuthenticateUser(username, password))
             {
-                // Appeler OnLoginSuccess dans MainWindow après une connexion réussie
-                MainWindow.Instance.OnLoginSuccess(); // Utilisation de la référence statique
+                // Navigation vers la page principale
+                this.Frame.Navigate(typeof(MainWindow));
             }
             else
             {
@@ -30,12 +29,29 @@ namespace App2
             }
         }
 
-
-
         private bool AuthenticateUser(string username, string password)
         {
-            // Logique pour authentifier l'utilisateur (par exemple, vérifier la base de données)
-            return Singleton.Instance.Authenticate(username, password);
+            try
+            {
+                string query = "SELECT COUNT(*) FROM administrateur WHERE nom_usager = @username AND mot_de_passe = @password";
+
+                using (MySqlConnection connection = Singleton.Instance.connection)
+                {
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@username", username);
+                    command.Parameters.AddWithValue("@password", password);
+
+                    connection.Open();
+                    int result = Convert.ToInt32(command.ExecuteScalar());
+                    connection.Close();
+
+                    return result > 0;
+                }
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

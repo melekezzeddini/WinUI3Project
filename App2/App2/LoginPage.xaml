@@ -5,14 +5,39 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <TextBlock Text="Connexion Administrateur" 
-                   FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10"/>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBox x:Name="UsernameTextBox" PlaceholderText="Nom d'utilisateur" Margin="0,5"/>
-            <PasswordBox x:Name="PasswordBox" PlaceholderText="Mot de passe" Margin="0,5"/>
-            <Button Content="Se connecter" Click="LoginButton_Click" Margin="0,5"/>
-            <TextBlock x:Name="ErrorTextBlock" Text="Erreur : utilisateur ou mot de passe incorrect." 
-                       Visibility="Collapsed" Foreground="Red" Margin="0,5"/>
+        <!-- Centrer le contenu de la page -->
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Spacing="20">
+
+            <!-- Titre de la page -->
+            <TextBlock Text="Connexion Administrateur" 
+                       FontSize="24" 
+                       FontWeight="Bold" 
+                       TextAlignment="Center"/>
+
+            <!-- Champ pour le nom d'utilisateur -->
+            <TextBox x:Name="UsernameTextBox" 
+                     PlaceholderText="Nom d'utilisateur" 
+                     FontSize="16"/>
+
+            <!-- Champ pour le mot de passe -->
+            <PasswordBox x:Name="PasswordBox" 
+                         PlaceholderText="Mot de passe" 
+                         FontSize="16"/>
+
+            <!-- Bouton pour se connecter -->
+            <Button Content="Se connecter" 
+                    Click="LoginButton_Click" 
+                    Background="#0078D7" 
+                    Foreground="White" 
+                    FontSize="16" 
+                    Padding="10"/>
+
+            <!-- Message d'erreur -->
+            <TextBlock x:Name="ErrorTextBlock" 
+                       Text="Nom d'utilisateur ou mot de passe incorrect." 
+                       Foreground="Red" 
+                       Visibility="Collapsed" 
+                       TextAlignment="Center"/>
         </StackPanel>
     </Grid>
 </Page>

@@ -34,10 +34,7 @@ namespace App2
         {
             if (!isAuthenticated)
             {
-                mainFrame.Navigate(typeof(LoginPage)); // Rediriger vers la page de connexion si non authentifié
-                return;
-            }
-
+                mainFrame.Navigate(typeof(LoginPage)); 
             if (args.SelectedItem != null)
             {
                 var item = (NavigationViewItem)args.SelectedItem;

@@ -16,6 +16,22 @@
             HorizontalAlignment="Center" 
             VerticalAlignment="Top" 
             Margin="0,10,10,10"/>
+        <TextBlock  x:Name="err" 
+   FontSize="14" 
+   FontWeight="Bold" 
+   HorizontalAlignment="Left" 
+   VerticalAlignment="Top" 
+   Margin="10"/>
+        <Button x:Name="ExporterButton" HorizontalAlignment="Right" VerticalAlignment="Top" 
+          Margin="10" Padding="10" Click="ExporterButton_Click">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal">
+                    <SymbolIcon Symbol="Save" Width="20" Height="20"/>
+                    
+                    <TextBlock Text="Exporter ces Activités" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                </StackPanel>
+            </Button.Content>
+        </Button>
 
         <Grid HorizontalAlignment="Stretch" Margin="10,50,10,0">
             <Grid.ColumnDefinitions>
@@ -28,7 +44,6 @@
             
         </Grid>
 
-        <!-- Liste des activités, seule partie scrollable -->
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,110,10,10">
             <ListView x:Name="ActivitesListView" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
                 <ListView.ItemTemplate>

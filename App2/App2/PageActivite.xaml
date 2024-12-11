@@ -6,7 +6,38 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid Padding="10">
-        <Button HorizontalAlignment="Left" 
+        <!-- Define Rows -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Back Button Row -->
+            <RowDefinition Height="Auto"/>
+            <!-- Title Row -->
+            <RowDefinition Height="Auto"/>
+            <!-- Description Label Row -->
+            <RowDefinition Height="Auto"/>
+            <!-- Type Row -->
+            <RowDefinition Height="Auto"/>
+            <!-- Cost Row -->
+            <RowDefinition Height="Auto"/>
+            <!-- Price Row -->
+            <RowDefinition Height="Auto"/>
+            <!-- Rating Row -->
+            <RowDefinition Height="Auto"/>
+            <!-- Rating Slider and Submit Row -->
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Define Columns -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <!-- Left Column for Labels -->
+            <ColumnDefinition Width="*"/>
+            <!-- Right Column for Values -->
+        </Grid.ColumnDefinitions>
+
+        <!-- Back Button -->
+        <Button Grid.Row="0" Grid.Column="0"
+                HorizontalAlignment="Left" 
                 VerticalAlignment="Top" 
                 Margin="10" 
                 Width="40" 
@@ -16,53 +47,114 @@
                 <SymbolIcon Symbol="Back"/>
             </Button.Content>
         </Button>
-        <!-- Titre de l'activité -->
-        <TextBlock Text="{x:Bind SelectedActivite.Nom}" 
-                   FontSize="24" 
+
+        <!-- Title of the Activity -->
+        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                   Text="{x:Bind SelectedActivite.Nom}" 
+                   FontSize="30" 
                    FontWeight="Bold" 
                    HorizontalAlignment="Center" 
                    VerticalAlignment="Top" 
                    Margin="10"/>
 
-        <!-- Description de l'activité -->
-        <TextBlock Text="Détails de l'activité:" 
-                   FontSize="18" 
+        <!-- Activity Details Label -->
+        <TextBlock Grid.Row="2" Grid.Column="0" 
+                   Text="Détails de l'activité:" 
+                   FontSize="24" 
                    HorizontalAlignment="Left" 
                    VerticalAlignment="Top" 
-                   Margin="0,50,0,10"/>
+                   Margin="0,10,0,10"/>
 
-        <TextBlock Text="Type d'activité : " 
-           FontSize="16" 
-           HorizontalAlignment="Left" 
-           VerticalAlignment="Top" 
-           Margin="0,100,0,10"/>
-        <TextBlock Text="{x:Bind SelectedActivite.TypeName}" 
-           FontSize="16" 
-           HorizontalAlignment="Left" 
-           VerticalAlignment="Top" 
-           Margin="120,100,0,10"/>
+        <!-- Activity Type Label and Value -->
+        <TextBlock Grid.Row="3" Grid.Column="0" 
+                   Text="Type d'activité : " 
+                   FontSize="16" 
+                   HorizontalAlignment="Left" 
+                   VerticalAlignment="Top" 
+                   Margin="50,10,0,10"/>
+        <TextBlock Grid.Row="3" Grid.Column="1" 
+                   Text="{x:Bind SelectedActivite.TypeName}" 
+                   FontSize="16" 
+                   HorizontalAlignment="Left" 
+                   VerticalAlignment="Top" 
+                   Margin="10,10,0,10"/>
 
-        <TextBlock Text="Coût d'organisation de l'activité : " 
-           FontSize="16" 
-           HorizontalAlignment="Left" 
-           VerticalAlignment="Top" 
-           Margin="0,150,0,10"/>
-        <TextBlock Text="{x:Bind SelectedActivite.FCoutOrganisation}" 
-           FontSize="16" 
-           HorizontalAlignment="Left" 
-           VerticalAlignment="Top" 
-           Margin="250,150,0,10"/>
+        <!-- Activity Cost Label and Value -->
+        <TextBlock Grid.Row="4" Grid.Column="0" 
+                   Text="Coût d'organisation de l'activité : " 
+                   FontSize="16" 
+                   HorizontalAlignment="Left" 
+                   VerticalAlignment="Top" 
+                   Margin="50,10,0,10"/>
+        <TextBlock Grid.Row="4" Grid.Column="1" 
+                   Text="{x:Bind SelectedActivite.FCoutOrganisation}" 
+                   FontSize="16" 
+                   HorizontalAlignment="Left" 
+                   VerticalAlignment="Top" 
+                   Margin="10,10,0,10"/>
 
-        <TextBlock Text="Prix de participation à l'activité : " 
-           FontSize="16" 
-           HorizontalAlignment="Left" 
-           VerticalAlignment="Top" 
-           Margin="0,200,0,10"/>
-        <TextBlock Text="{x:Bind SelectedActivite.FPrixParticipation}" 
-           FontSize="16" 
-           HorizontalAlignment="Left" 
-           VerticalAlignment="Top" 
-           Margin="250,200,0,10"/>
+        <!-- Participation Price Label and Value -->
+        <TextBlock Grid.Row="5" Grid.Column="0" 
+                   Text="Prix de participation à l'activité : " 
+                   FontSize="16" 
+                   HorizontalAlignment="Left" 
+                   VerticalAlignment="Top" 
+                   Margin="50,10,0,10"/>
+        <TextBlock Grid.Row="5" Grid.Column="1" 
+                   Text="{x:Bind SelectedActivite.FPrixParticipation}" 
+                   FontSize="16" 
+                   HorizontalAlignment="Left" 
+                   VerticalAlignment="Top" 
+                   Margin="10,10,0,10"/>
+
+        <!-- Activity Rating Label and Value -->
+        <TextBlock Grid.Row="6" Grid.Column="0" 
+                   Text="Note de l'activité : " 
+                   FontSize="16" 
+                   HorizontalAlignment="Left" 
+                   VerticalAlignment="Top" 
+                   Margin="50,10,0,10"/>
+        <TextBlock Grid.Row="6" Grid.Column="1" 
+                   Text="{x:Bind SelectedActivite.AvgRating, Mode=OneWay}" 
+                   FontSize="16" 
+                   HorizontalAlignment="Left" 
+                   VerticalAlignment="Top" 
+                   Margin="10,10,0,10"/>
+
+        <!-- Slider for Rating -->
+        <TextBlock Grid.Row="7" Grid.Column="0"
+                   Text="Votre note :"
+                   FontSize="16"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Margin="50,10,0,10"/>
+        <Slider Grid.Row="7" Grid.Column="1"
+                Minimum="1" 
+                Maximum="5" 
+                Value="5" 
+                x:Name="slider"
+                StepFrequency="0.05" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top" 
+                Margin="0,10,0,10" 
+                Width="300"         ValueChanged="RatingSlider_ValueChanged"/>
+
+
+        <TextBlock  Grid.Row="7" Grid.Column="1"
+           FontSize="16" x:Name="SliderValueText"
+           HorizontalAlignment="Left"
+           VerticalAlignment="Top"
+           Margin="310,10,0,10"/>
+
+        <Button Grid.Row="8" Grid.Column="0" 
+                                   Margin=" 50,10,0,10"
+        Content="Soumettre ma note" 
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center" 
+                Padding="10" 
+                Click="Button_Click"/>
+        <TextBlock x:Name="StatusTextBlock"       Margin=" 50,10,0,10"
+ HorizontalAlignment="Center" VerticalAlignment="Center" />
 
     </Grid>
 </Page>

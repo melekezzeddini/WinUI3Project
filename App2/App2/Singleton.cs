@@ -14,6 +14,7 @@ namespace App2
         {
             connection = new MySqlConnection("Server=cours.cegep3r.info;Database=a2024_420335ri_eq17;Uid=6221863;Pwd=6221863;");
         }
+        
 
         public static Singleton Instance
         {
@@ -32,9 +33,14 @@ namespace App2
         {
             List<Activite> activites = new List<Activite>();
 
-            string query = "SELECT a.id_activite, a.nom, a.cout_organisation, a.prix_participation, t.nom AS type_name " +
+            // SQL query to get all activities with their average ratings
+            string query = "SELECT a.id_activite, a.nom, a.cout_organisation, a.prix_participation, t.nom AS type_name, " +
+                           "AVG(p.note_appreciation) AS avg_rating " +
                            "FROM activite a " +
-                           "JOIN type t ON a.id_type = t.id_type";
+                           "JOIN type t ON a.id_type = t.id_type " +
+                           "LEFT JOIN seance s ON a.id_activite = s.id_activite " +
+                           "LEFT JOIN participer p ON s.id_seance = p.id_seance " +
+                           "GROUP BY a.id_activite";
 
             MySqlCommand command = new MySqlCommand(query, connection);
 
@@ -52,14 +58,17 @@ namespace App2
                     Nom = reader.GetString("nom"),
                     CoutOrganisation = reader.GetDouble("cout_organisation"),
                     PrixParticipation = reader.GetDouble("prix_participation"),
-                    TypeName = reader.GetString("type_name")
-                };
+                    TypeName = reader.GetString("type_name"),
+                    AvgRating = Math.Round(reader.IsDBNull(reader.GetOrdinal("avg_rating")) ? 0 : reader.GetDouble("avg_rating"),2) // Default to 0 if null
+                }; 
                 activites.Add(activite);
             }
 
             connection.Close();
             return activites;
         }
+
+
 
         // Consolidated statistics method
         public (int TotalMembers, int TotalActivities, List<string> MembersPerActivity, List<string> AverageRatings,
@@ -121,6 +130,64 @@ namespace App2
 
             return (totalMembers, totalActivities, membersPerActivity, averageRatings, totalSessions, totalParticipants, averageSessionsPerActivity);
         }
+        public bool SubmitRating(string numIdentification, int idSeance, double noteAppreciation, out string errorMessage)
+        {
+            try
+            {
+                // Check if the user has already rated this activity
+                string checkQuery = "SELECT COUNT(*) FROM participer WHERE id_adherent = @id_adherent AND id_seance = @id_seance";
+                MySqlCommand checkCommand = new MySqlCommand(checkQuery, connection);
+                checkCommand.Parameters.AddWithValue("@id_adherent", numIdentification);
+                checkCommand.Parameters.AddWithValue("@id_seance", idSeance);
+
+                if (connection.State != System.Data.ConnectionState.Open)
+                {
+                    connection.Open();
+                }
+
+                int count = Convert.ToInt32(checkCommand.ExecuteScalar());
+                if (count > 0)
+                {
+                    // If the user already rated, set error message and return false
+                    errorMessage = "Vous avez déjà noté cette activité";
+                    return false;
+                }
+
+                // Proceed to insert new rating
+                string query = "INSERT INTO participer (id_adherent, id_seance, note_appreciation) " +
+                               "VALUES (@id_adherent, @id_seance, @note_appreciation)";
+
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@id_adherent", numIdentification);
+                command.Parameters.AddWithValue("@id_seance", idSeance);
+                command.Parameters.AddWithValue("@note_appreciation", noteAppreciation);
+
+                int result = command.ExecuteNonQuery();
+                if (result > 0)
+                {
+                    errorMessage = string.Empty;  // No error
+                    return true;  // Successful insertion
+                }
+                else
+                {
+                    errorMessage = "Erreur lors de la soumission de la note.";
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"Erreur lors de la soumission de la note : {ex.Message}";
+                return false;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+
+
+
 
         // Helper methods: ExecuteScalar and ExecuteReader (unchanged)
         public object ExecuteScalar(string query)

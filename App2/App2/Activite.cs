@@ -12,7 +12,8 @@ namespace App2
             public double CoutOrganisation { get; set; }
             public double PrixParticipation { get; set; }
             public int IdType { get; set; }
-            public string TypeName { get; set; }  
+            public string TypeName { get; set; }
+        public double AvgRating { get; set; }  
         public string FCoutOrganisation => $"{CoutOrganisation:0.00} $";
         public string FPrixParticipation => $"{PrixParticipation:0.00} $";
 
